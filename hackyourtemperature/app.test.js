@@ -12,6 +12,14 @@ describe("POST /weather", () => {
       })
       expect(response.statusCode).toBe(200)
     })
+
+    test("should specify json as the content type in the http header", async () => {
+      const response = await request(app).post("/weather").send({ 
+        cityName: "Ankara", 
+        countryCode: "tr"
+      })
+      expect(response.headers['content-type']).toEqual(expect.stringContaining('json'))
+    })
   })
 
 })
