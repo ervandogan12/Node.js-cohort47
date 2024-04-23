@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "./app.js";
+import app from "../app.js";
 
 
 describe("POST /weather", () => {
@@ -21,5 +21,12 @@ describe("POST /weather", () => {
       expect(response.headers['content-type']).toEqual(expect.stringContaining('json'))
     })
   })
+
+  describe("when the cityName or countryCode is missing", () => {
+    test("should return a 400 status code", async () => {
+      const response = await request(app).post("/weather").send({ cityName: "Amsterdam" })
+      expect(response.statusCode).toBe(400)
+    })
+    })
 
 })
